@@ -22,7 +22,9 @@ import { Storage } from './storage'
 export type ErrorListener = (...args: unknown[]) => void
 export type RedirectListener = (to: string, from: string) => string
 
-export class Auth {
+type User = Record<string, unknown>
+
+export class Auth<U = User> {
   public ctx: Context
   public options: ModuleOptions
   public strategies: Record<string, Scheme> = {}
@@ -75,7 +77,7 @@ export class Auth {
     return this.strategies[this.$state.strategy]
   }
 
-  get user(): Record<string, unknown> | null {
+  get user(): U | null {
     return this.$state.user
   }
 
